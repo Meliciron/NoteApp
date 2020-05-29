@@ -4,7 +4,6 @@ using NoteApp;
 using NUnit.Framework;
 
 namespace UnitTests
-
 {
     [TestFixture]
     public class ProjectTest
@@ -19,7 +18,6 @@ namespace UnitTests
             _project.Notes = new List<Note>();
             _note = new Note();
         }
-
         [TestCase(TestName = "Добавление новой заметки в список")]
         public void TestProject()
         {
@@ -27,8 +25,9 @@ namespace UnitTests
             _note.Category = NoteCategory.All;
             _note.Text = "Text";
             _project.Notes.Add(_note);
+            Assert.AreEqual(_project.Notes[0].Name, "Name");
+            Assert.AreEqual(_project.Notes[0].Category, NoteCategory.All);
+            Assert.AreEqual(_project.Notes[0].Text, "Text");
         }
-
-        
     }
 }

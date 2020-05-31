@@ -14,7 +14,7 @@ namespace UnitTests
     {
         private Note _note;
         [SetUp]
-        public void InitNote()
+        public void initNote()
         {
            _note = new Note();
         }

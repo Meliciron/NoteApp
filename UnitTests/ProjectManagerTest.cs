@@ -39,13 +39,14 @@ namespace UnitTests
         [TestCase(TestName = "Тест сериализации проекта")]
         public void SaveToFileTest()
         {
+            //TODO: ты проверяешь только существование файла, но надо проверять, правильно ли он записался
             _projectManager.SaveToFile(_project);
             Assert.True(File.Exists(_noteAppPath + "Test.json"));
         }
 
         [TestCase("No name", "Some text", NoteCategory.All,
             TestName = "Тест дессериализации проекта")]
-        public void LaodFromFileTest(string expectedName, string expectedText, NoteCategory expectedNoteCategory)
+        public void LaodFromFileTest(string expectedName, string expectedText, NoteCategory expectedNoteCategory) //TODO: грамошибка в названии
         {
             _projectManager.SaveToFile(_project);
             var actual = _projectManager.LoadFromFile();

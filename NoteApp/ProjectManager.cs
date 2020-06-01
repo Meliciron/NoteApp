@@ -14,7 +14,7 @@ namespace NoteApp
     ///  Реализует метод для сохранения объекта «Проект» в файл и метод загрузки проекта из файла.
     /// </summary>
     public class ProjectManager
-    {
+    {//TODO: поправить табуляцию
     /// <summary>
     /// переменная, содеражащая имя файла (де)сериализации.
     /// </summary>
@@ -26,7 +26,7 @@ namespace NoteApp
         /// <summary>
         /// метод, устанавливающий имя файла для работы с (де)сериализации.
         /// </summary>
-        public void SetWorkFileName()
+        public void SetWorkFileName() //TODO: вместо этих двух методов должно быть два константных текстовых поля. А в точке вызова сохранения/загрузки проекта в метод в качестве аргумента будет передаваться одна из этих константных строк
         {
             _filename = "Work.json"; 
         }
@@ -41,7 +41,7 @@ namespace NoteApp
         /// метод, сохраняющий данные о заметке в файл.
         /// </summary>
         /// <param name="project"></param>
-        public void SaveToFile(Project project)
+        public void SaveToFile(Project project) //TODO: путь до файла должен передаваться в метод аргументом, а не храниться в поле
         {
             JsonSerializer serializer = new JsonSerializer();
             using (StreamWriter sw = new StreamWriter(_noteAppPath + _filename))
@@ -54,7 +54,7 @@ namespace NoteApp
         /// метод, возвращающий данные о заметке из файла.
         /// </summary>
         /// <returns></returns>
-        public Project LoadFromFile()
+        public Project LoadFromFile() //TODO:  путь до файла должен передаваться аргументом в метод
         {
             Project project = null;
             JsonSerializer serializer = new JsonSerializer();

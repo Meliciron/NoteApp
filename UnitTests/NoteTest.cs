@@ -13,7 +13,7 @@ namespace UnitTests
     public class NoteTest
     {
         private Note _note;
-        [SetUp]
+        [SetUp] //TODO: в методичке указано, что несмотря на существование setup, этот атрибут лучше не использовать
         public void initNote()
         {
            _note = new Note();

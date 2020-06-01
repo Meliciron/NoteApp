@@ -10,7 +10,8 @@ namespace NoteApp
     /// Класс, содержащий список (или словарь) всех заметок.
     /// </summary>
     public class Project
-    {
+    {   //TODO: xml
+        //TODO: нужен конструктор, в котором будет сразу создаваться пустой список заметок
         public List<Note> Notes { get; set; }
     }
 }

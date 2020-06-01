@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NoteAppUI
-{
+{ //TODO: xml
+    //TODO: пустые строки
     public partial class MainForm : Form
     {
         private Project _project = new Project();
@@ -20,7 +21,7 @@ namespace NoteAppUI
             InitializeComponent();
             FillCombobox();
             _projectManager.SetWorkFileName();
-            NoteListBox.DisplayMember = "Name";
+            NoteListBox.DisplayMember = "Name"; //TODO: задание displayMember лучше делать через дизайнер
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -35,6 +36,7 @@ namespace NoteAppUI
             }
             else
             {
+                //TODO: эту логику надо перенести в менеджер проекта - если файла нет, то вернуть пустой проект. Тогда и здесь не надо будет делать условия с проверками
                 _project = new Project();
                 _project.Notes = new List<Note>();
             }
@@ -43,7 +45,7 @@ namespace NoteAppUI
         }
         /// <summary>
         /// Заполнение комбобокса категориями заметок
-        /// </summary>
+        /// </summary>//TODO: почему имя метода перенесено на другую строку
         private void
             FillCombobox()
         {
@@ -74,7 +76,7 @@ namespace NoteAppUI
        private void EditNote()
         {
             int currentNoteIndex = NoteListBox.SelectedIndex;
-            if (NoteListBox.SelectedIndex != -1)
+            if (NoteListBox.SelectedIndex != -1) //TODO: инвертировать if, чтобы уменьшить вложенность
             {
                 var selectedNote = (Note) NoteListBox.SelectedItem;
                 var editNoteForm = new NoteForm();
@@ -82,20 +84,20 @@ namespace NoteAppUI
                 editNoteForm.Text = "Edit note";
                 /* editNoteForm.Icon = 
                      Icon.ExtractAssociatedIcon( Environment.ExpandEnvironmentVariables(@"Icons\edit-note.ico"));*/
-                editNoteForm.ShowDialog();
+                editNoteForm.ShowDialog(); //TODO: надо проверять, с каким результатом закрылось окно
                 var editNote = editNoteForm.Note;
-                if (editNote != null)
+                if (editNote != null) //TODO: опять - инвертировать условие, чтобы уменьшить вложенность
                 {
                     NoteListBox.Items.RemoveAt(currentNoteIndex);
                     _project.Notes.RemoveAt(currentNoteIndex);
                     NoteListBox.Items.Add(editNote);
                     _project.Notes.Add(editNote);
                     _projectManager.SaveToFile(_project);
-                    _projectManager.LoadFromFile();
+                    _projectManager.LoadFromFile(); //TODO: зачем загрузка? плюс загруженный проект не сохраняется ни в одной переменной
                 }
             }
             else
-            {
+            { //TODO: месседжбоксы надо показывать, когда пользователь может потерять данные. А в таких случаях лучше не показывать - они только бесят пользователей
                 MessageBox.Show("Please choose note");
             }
         }
@@ -122,11 +124,12 @@ namespace NoteAppUI
                     NoteListBox.Items.Remove(deleteItem);
                     _project.Notes.Remove((Note) deleteItem);
                     _projectManager.SaveToFile(_project);
-                    _projectManager.LoadFromFile();
+                    _projectManager.LoadFromFile(); //TODO: зачем?
                 }
             }
             else
             {
+                //TODO: см. выше
                 MessageBox.Show("Please choose note");
             }
         }
@@ -158,7 +161,7 @@ namespace NoteAppUI
         /// <summary>
         /// Заполнение информации (название, содержание и т.д.) заметки
         /// </summary>
-        void FillNoteInfo()
+        void FillNoteInfo() //TODO:  модификаторы доступа должны быть прописаны явно
         {
             Note note = (Note)NoteListBox.SelectedItem;
             TitleLabel.Text = note.Name;
@@ -231,4 +234,9 @@ namespace NoteAppUI
             AddNote();
         }
     }
+    //TODO: Замечания по верстке окна:
+    //TODO: 1) элементы не выровнены между собой по направляющим (например лейблы относительно текстбоксов и т.д.)
+    //TODO: 2) у элементов должны быть одинаковые отступы/расстояния между друг другом. Здесь же поля слева и права могут быть разных размеров, как и расстояния между элементами сверху и снизу
+    //TODO: 3) грамматические ошибки
+    //TODO: 4) должна быть иконка у главного окна
 }

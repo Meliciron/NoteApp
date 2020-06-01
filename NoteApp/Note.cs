@@ -16,7 +16,7 @@ namespace NoteApp
         /// <summary>
         /// Название заметки. Не более 50 символов.
         /// </summary>
-        private string _name;
+        private string _name; //TODO: здесь и везде - должна быть пустая строка между членом класса и комментарием для следующего
         /// <summary>
         /// Категория заметки (с.м. enum noteCategory).
         /// </summary>

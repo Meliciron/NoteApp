@@ -98,7 +98,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NoteAPPlocal\NoteApp\NoteApp.csproj">
+    <ProjectReference Include="..\NoteApp\NoteApp.csproj">
       <Project>{cbed6748-4a18-439a-a3e6-c3e0fd54e131}</Project>
       <Name>NoteApp</Name>
     </ProjectReference>

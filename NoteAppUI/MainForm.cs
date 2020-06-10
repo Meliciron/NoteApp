@@ -1,59 +1,57 @@
 ﻿using System;
 using NoteApp;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
+using Timer = System.Threading.Timer;
 
 namespace NoteAppUI
 { //TODO: xml
-    //TODO: пустые строки
     public partial class MainForm : Form
     {
+        //Объявление переменных
         private Project _project = new Project();
+        private const string _workFileName = "Work.json";
+        private string _filePath = Environment.ExpandEnvironmentVariables(@"%appdata%\NoteApp");
         private ProjectManager _projectManager = new ProjectManager();
         public MainForm()
         {
             InitializeComponent();
+            CategoryComboBox.Items.Add("All");
             FillCombobox();
-            _projectManager.SetWorkFileName();
-            NoteListBox.DisplayMember = "Name"; //TODO: задание displayMember лучше делать через дизайнер
+            if (_project.CurrentNote != null)
+                NoteListBox.SelectedItem = _project.CurrentNote;
         }
 
+        /// <summary>
+        /// Загрузка главной формы
+        /// </summary>
         private void MainForm_Load(object sender, EventArgs e)
         {
-            _project = _projectManager.LoadFromFile();
-            if (_project != null)
-            {
-                foreach (Note note in _project.Notes)
-                {
-                    NoteListBox.Items.Add(note);
-                }
-            }
-            else
-            {
-                //TODO: эту логику надо перенести в менеджер проекта - если файла нет, то вернуть пустой проект. Тогда и здесь не надо будет делать условия с проверками
-                _project = new Project();
-                _project.Notes = new List<Note>();
-            }
+            _project = _projectManager.LoadFromFile(_filePath, _workFileName);
+            foreach (Note note in _project.Notes) NoteListBox.Items.Add(note);
             CategoryComboBox.SelectedIndex = 0;
-            NoteListBox.SelectedIndex = -1;
+            FillNoteInfo(_project.CurrentNote);
         }
+
         /// <summary>
         /// Заполнение комбобокса категориями заметок
         /// </summary>//TODO: почему имя метода перенесено на другую строку
-        private void
-            FillCombobox()
+        private void FillCombobox()
         {
             foreach (NoteCategory noteCategory in Enum.GetValues(typeof(NoteCategory)))
             {
                 CategoryComboBox.Items.Add(noteCategory.ToString());
             }
         }
+
         /// <summary>
         /// Создание новой заметки
         /// </summary>
@@ -61,22 +59,34 @@ namespace NoteAppUI
         {
             var newNoteForm = new NoteForm();
             newNoteForm.ShowDialog();
-            var newNote = newNoteForm.Note;
-            if (newNote != null)
+            if (newNoteForm.DialogResult != DialogResult.OK)
+                NoteListBox.SelectedItem = -1;
+            else
             {
-                _project.Notes.Add(newNote);
-                NoteListBox.Items.Add(newNote);
-                _projectManager.SaveToFile(_project);
-                _projectManager.LoadFromFile();
+                var newNote = newNoteForm.Note;
+                if (newNote != null)
+                {
+                    newNote.CreatureDate = DateTime.Now;
+                    _project.Notes.Add(newNote);
+                    NoteListBox.Items.Add(newNote);
+                    _projectManager.SaveToFile(_project, _filePath, _workFileName);
+                    _projectManager.LoadFromFile(_filePath, _workFileName);
+                }
             }
         }
+
         /// <summary>
         /// Редактирование выбранной заметки
         /// </summary>
-       private void EditNote()
+        private void EditNote()
         {
             int currentNoteIndex = NoteListBox.SelectedIndex;
-            if (NoteListBox.SelectedIndex != -1) //TODO: инвертировать if, чтобы уменьшить вложенность
+            if (NoteListBox.SelectedIndex == -1)
+            {
+                //TODO: месседжбоксы надо показывать, когда пользователь может потерять данные. А в таких случаях лучше не показывать - они только бесят пользователей
+                ErrorInditation();
+            }
+            else
             {
                 var selectedNote = (Note) NoteListBox.SelectedItem;
                 var editNoteForm = new NoteForm();
@@ -85,28 +95,35 @@ namespace NoteAppUI
                 /* editNoteForm.Icon = 
                      Icon.ExtractAssociatedIcon( Environment.ExpandEnvironmentVariables(@"Icons\edit-note.ico"));*/
                 editNoteForm.ShowDialog(); //TODO: надо проверять, с каким результатом закрылось окно
-                var editNote = editNoteForm.Note;
-                if (editNote != null) //TODO: опять - инвертировать условие, чтобы уменьшить вложенность
+                if (editNoteForm.DialogResult != DialogResult.OK)
+                    NoteListBox.SelectedItem = -1;
+                else
                 {
-                    NoteListBox.Items.RemoveAt(currentNoteIndex);
-                    _project.Notes.RemoveAt(currentNoteIndex);
-                    NoteListBox.Items.Add(editNote);
-                    _project.Notes.Add(editNote);
-                    _projectManager.SaveToFile(_project);
-                    _projectManager.LoadFromFile(); //TODO: зачем загрузка? плюс загруженный проект не сохраняется ни в одной переменной
+                    var editNote = editNoteForm.Note;
+                    if (editNote == null)
+                        NoteListBox.SelectedItem = -1;
+                    else
+                    {
+                        NoteListBox.Items.RemoveAt(currentNoteIndex);
+                        _project.Notes.RemoveAt(currentNoteIndex);
+                        NoteListBox.Items.Add(editNote);
+                        _project.Notes.Add(editNote);
+                        _projectManager.SaveToFile(_project, _filePath, _workFileName);
+                    }
                 }
             }
-            else
-            { //TODO: месседжбоксы надо показывать, когда пользователь может потерять данные. А в таких случаях лучше не показывать - они только бесят пользователей
-                MessageBox.Show("Please choose note");
-            }
         }
+
         /// <summary>
         /// Удаление выбранной заметки
         /// </summary>
         private void RemoveNote()
         {
-            if (NoteListBox.SelectedIndex != -1)
+            if (NoteListBox.SelectedIndex == -1)
+            {
+                ErrorInditation();
+            }
+            else
             {
                 var deleteItem = NoteListBox.SelectedItem;
                 DialogResult result = MessageBox.Show("Do you want to remove this note?", "Note removing",
@@ -123,16 +140,11 @@ namespace NoteAppUI
                     }
                     NoteListBox.Items.Remove(deleteItem);
                     _project.Notes.Remove((Note) deleteItem);
-                    _projectManager.SaveToFile(_project);
-                    _projectManager.LoadFromFile(); //TODO: зачем?
+                    _projectManager.SaveToFile(_project, _filePath, _workFileName);
                 }
             }
-            else
-            {
-                //TODO: см. выше
-                MessageBox.Show("Please choose note");
-            }
         }
+
         /// <summary>
         /// Сортировка заметок по категориям
         /// </summary>
@@ -148,7 +160,7 @@ namespace NoteAppUI
             }
             else
             {
-                var currentCategory =(NoteCategory) Enum.GetValues(typeof(NoteCategory)).GetValue(CategoryComboBox.SelectedIndex);
+                var currentCategory =(NoteCategory) Enum.GetValues(typeof(NoteCategory)).GetValue(CategoryComboBox.SelectedIndex -1);
                 foreach (Note note in _project.Notes)
                 {
                     if (note.Category == currentCategory)
@@ -158,18 +170,19 @@ namespace NoteAppUI
                 }
             }
         }
+
         /// <summary>
         /// Заполнение информации (название, содержание и т.д.) заметки
         /// </summary>
-        void FillNoteInfo() //TODO:  модификаторы доступа должны быть прописаны явно
+        private void FillNoteInfo(Note note) //TODO:  модификаторы доступа должны быть прописаны явно
         {
-            Note note = (Note)NoteListBox.SelectedItem;
             TitleLabel.Text = note.Name;
             Pan2CategoryLabel.Text = note.Category.ToString();
             ModifiedDateTimePicker.Value = note.LastChangeDate;
             CreatureDateTimePicker.Value = note.CreatureDate;
             NoteTextTextBox.Text = note.Text;
         }
+
         /// <summary>
         /// Сообщение при выходе из программы
         /// </summary>
@@ -178,60 +191,138 @@ namespace NoteAppUI
             DialogResult result = MessageBox.Show("Exit NoteApp?", "NoteApp", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
+                _project.CurrentNote = (Note) NoteListBox.SelectedItem;
+                _projectManager.SaveToFile(_project, _filePath, _workFileName);
                 Application.Exit();
             }
         }
+
+        /// <summary>
+        /// Моргание фона листбокса, если не выбрана заметка для редактирования или удаления
+        /// </summary>
+        private void ErrorInditation()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                NoteListBox.BackColor = Color.IndianRed;
+                Task.Delay(300).GetAwaiter().GetResult();
+                NoteListBox.BackColor = Color.White;
+                Task.Delay(300).GetAwaiter().GetResult();
+            }
+        }
+
+        /// <summary>
+        /// Событие при выборе категории заметки в комбобоксе
+        /// </summary>
         private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Sorting();
         }
+
+        /// <summary>
+        /// Событие при закрытии приложения
+        /// </summary>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CloseAppMessage();
         }
 
+        /// <summary>
+        /// Событие при выборе заметки в листбоксе
+        /// </summary>
         private void NoteListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (NoteListBox.SelectedItem != null)
             {
-                FillNoteInfo();
+                FillNoteInfo( (Note) NoteListBox.SelectedItem);
             }
         }
 
+        /// <summary>
+        /// Событие при нажатии на изображении с удалением заметки
+        /// </summary>
         private void DeleteNotePictureBox_Click(object sender, EventArgs e)
         {
             RemoveNote();
         }
 
+        /// <summary>
+        /// Событие при нажатии на удаление заметки в меню
+        /// </summary>
         private void removeNoteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RemoveNote();
         }
 
+        /// <summary>
+        /// Событие при нажатии на раздел about в меню
+        /// </summary>
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var newAboutForm = new AboutForm();
             newAboutForm.ShowDialog();
         }
 
+        /// <summary>
+        /// Событие при нажатии на изображение с добавлением новой заметки
+        /// </summary>
         private void NewNotePictureBox_Click(object sender, EventArgs e)
         {
             AddNote();
         }
 
+        /// <summary>
+        /// Событие при нажатии на изображение с редактированием заметки
+        /// </summary>
         private void EditNotePictureBox_Click(object sender, EventArgs e)
         {
             EditNote();
         }
 
+        /// <summary>
+        /// Событие при выборе раздела Edit note в меню
+        /// </summary>
         private void editNoteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             EditNote();
         }
 
+        /// <summary>
+        /// Событие при выборе раздела Add note в меню
+        /// </summary>
         private void addNoteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddNote();
+        }
+
+        /// <summary>
+        /// Событие при нажатии на клавишу Delete
+        /// </summary>
+        private void NoteListBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+                RemoveNote();
+        }
+
+        /// <summary>
+        /// Событие при нажатии на кнопку "Сортировать по дате изменения"
+        /// </summary>
+        private void SortByDateButton_Click(object sender, EventArgs e)
+        {
+            NoteListBox.Items.Clear();
+            if (CategoryComboBox.SelectedIndex == 0)
+            {
+                foreach (Note note in _project.SortList(_project.Notes))
+                    NoteListBox.Items.Add(note);
+            }
+            if (CategoryComboBox.SelectedIndex != 0)
+            {
+                var selectedCategory = (NoteCategory)Enum.GetValues(typeof(NoteCategory)).GetValue(CategoryComboBox.SelectedIndex -1);
+                foreach (Note note in _project.SortList(selectedCategory, _project.SortList(_project.Notes)))
+                {
+                    NoteListBox.Items.Add(note);
+                }
+            }
         }
     }
     //TODO: Замечания по верстке окна:

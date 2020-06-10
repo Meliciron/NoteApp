@@ -17,22 +17,27 @@ namespace NoteApp
         /// Название заметки. Не более 50 символов.
         /// </summary>
         private string _name; //TODO: здесь и везде - должна быть пустая строка между членом класса и комментарием для следующего
+       
         /// <summary>
         /// Категория заметки (с.м. enum noteCategory).
         /// </summary>
         private NoteCategory _category;
+       
         /// <summary>
         /// Текст, содержание заметки.
         /// </summary>
         private string _text;
+        
         /// <summary>
         /// Дата создания заметки, инициализируется однажды - при создании.
         /// </summary>
         private DateTime _creatureDate;
+       
         /// <summary>
         /// Время последнего изменения меняется автоматически при изменении названия, категории или текста заметки.
         /// </summary>
         private DateTime _lastChangeDate;
+       
         /// <summary>
         /// Метод, возвращающий или устанавливающй значение имени заметки
         /// </summary>

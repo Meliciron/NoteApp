@@ -9,11 +9,12 @@ namespace UnitTests
     public class ProjectManagerTest
     {
         private ProjectManager _projectManager;
-        private string _noteAppPath = Environment.ExpandEnvironmentVariables(@"%appdata%\NoteApp");
+        private string _testfilename = "NoteAppTest.json";
+        private string _serializeTestFile = "SerializeTestNoteApp.json";
+        private string _filePath = Environment.ExpandEnvironmentVariables(@"%appdata%\");
         private Project _project;
         private Note _note;
 
-        [SetUp]
         public void InitProjectManager()
         {
             _projectManager = new ProjectManager();
@@ -21,18 +22,16 @@ namespace UnitTests
             _project.Notes = new List<Note>();
             _note = new Note();
             _note.Name = "No name";
-            _note.Category = NoteCategory.All;
+            _note.Category = NoteCategory.Other;
             _note.Text = "Some text";
             _project.Notes.Add(_note);
-            _projectManager.SetTestFileName();
-
         }
         [TearDown]
         public void RemoveFile()
         {
-            if (File.Exists(_noteAppPath + "Test.json"))
+            if (File.Exists(_filePath + _testfilename))
             {
-                File.Delete(_noteAppPath + "Test.json");
+                File.Delete(_filePath + _testfilename);
             }
         }
 
@@ -40,16 +39,21 @@ namespace UnitTests
         public void SaveToFileTest()
         {
             //TODO: ты проверяешь только существование файла, но надо проверять, правильно ли он записался
-            _projectManager.SaveToFile(_project);
-            Assert.True(File.Exists(_noteAppPath + "Test.json"));
+            InitProjectManager();
+            _projectManager.SaveToFile(_project, _filePath, _testfilename);
+            var actual = File.ReadAllText(_filePath + _testfilename);
+            var expected = File.ReadAllText(_filePath + _serializeTestFile);
+            Assert.True(File.Exists(_filePath + _testfilename));
+            Assert.AreEqual(expected, actual);
         }
 
-        [TestCase("No name", "Some text", NoteCategory.All,
+        [TestCase("No name", "Some text", NoteCategory.Other,
             TestName = "Тест дессериализации проекта")]
-        public void LaodFromFileTest(string expectedName, string expectedText, NoteCategory expectedNoteCategory) //TODO: грамошибка в названии
+        public void LoadFromFileTest(string expectedName, string expectedText, NoteCategory expectedNoteCategory) //TODO: грамошибка в названии
         {
-            _projectManager.SaveToFile(_project);
-            var actual = _projectManager.LoadFromFile();
+            InitProjectManager();
+            _projectManager.SaveToFile(_project, _filePath, _testfilename);
+            var actual = _projectManager.LoadFromFile(_filePath, _testfilename);
             Assert.AreEqual(expectedName, actual.Notes[0].Name);
             Assert.AreEqual(expectedText, actual.Notes[0].Text);
             Assert.AreEqual(expectedNoteCategory, actual.Notes[0].Category);

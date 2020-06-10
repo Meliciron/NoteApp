@@ -45,16 +45,16 @@
             // TitleLabel
             // 
             this.TitleLabel.AutoSize = true;
-            this.TitleLabel.Location = new System.Drawing.Point(13, 12);
+            this.TitleLabel.Location = new System.Drawing.Point(9, 18);
             this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(35, 17);
+            this.TitleLabel.Size = new System.Drawing.Size(39, 17);
             this.TitleLabel.TabIndex = 0;
-            this.TitleLabel.Text = "Title";
+            this.TitleLabel.Text = "Title:";
             // 
             // CategoryLabel
             // 
             this.CategoryLabel.AutoSize = true;
-            this.CategoryLabel.Location = new System.Drawing.Point(13, 48);
+            this.CategoryLabel.Location = new System.Drawing.Point(9, 44);
             this.CategoryLabel.Name = "CategoryLabel";
             this.CategoryLabel.Size = new System.Drawing.Size(69, 17);
             this.CategoryLabel.TabIndex = 1;
@@ -63,16 +63,16 @@
             // CreatureDateLabel
             // 
             this.CreatureDateLabel.AutoSize = true;
-            this.CreatureDateLabel.Location = new System.Drawing.Point(13, 85);
+            this.CreatureDateLabel.Location = new System.Drawing.Point(9, 69);
             this.CreatureDateLabel.Name = "CreatureDateLabel";
-            this.CreatureDateLabel.Size = new System.Drawing.Size(54, 17);
+            this.CreatureDateLabel.Size = new System.Drawing.Size(62, 17);
             this.CreatureDateLabel.TabIndex = 2;
-            this.CreatureDateLabel.Text = "Crated:";
+            this.CreatureDateLabel.Text = "Created:";
             // 
             // ModifiedDateLabel
             // 
             this.ModifiedDateLabel.AutoSize = true;
-            this.ModifiedDateLabel.Location = new System.Drawing.Point(314, 85);
+            this.ModifiedDateLabel.Location = new System.Drawing.Point(318, 69);
             this.ModifiedDateLabel.Name = "ModifiedDateLabel";
             this.ModifiedDateLabel.Size = new System.Drawing.Size(65, 17);
             this.ModifiedDateLabel.TabIndex = 3;
@@ -80,23 +80,23 @@
             // 
             // TitleTextBox
             // 
-            this.TitleTextBox.Location = new System.Drawing.Point(88, 12);
+            this.TitleTextBox.Location = new System.Drawing.Point(88, 15);
             this.TitleTextBox.Name = "TitleTextBox";
             this.TitleTextBox.Size = new System.Drawing.Size(501, 22);
             this.TitleTextBox.TabIndex = 4;
             // 
             // NoteTextTextBox
             // 
-            this.NoteTextTextBox.Location = new System.Drawing.Point(12, 121);
+            this.NoteTextTextBox.Location = new System.Drawing.Point(12, 97);
             this.NoteTextTextBox.Multiline = true;
             this.NoteTextTextBox.Name = "NoteTextTextBox";
-            this.NoteTextTextBox.Size = new System.Drawing.Size(701, 360);
+            this.NoteTextTextBox.Size = new System.Drawing.Size(723, 384);
             this.NoteTextTextBox.TabIndex = 5;
             // 
             // CategoryComboBox
             // 
             this.CategoryComboBox.FormattingEnabled = true;
-            this.CategoryComboBox.Location = new System.Drawing.Point(88, 45);
+            this.CategoryComboBox.Location = new System.Drawing.Point(88, 41);
             this.CategoryComboBox.Name = "CategoryComboBox";
             this.CategoryComboBox.Size = new System.Drawing.Size(121, 24);
             this.CategoryComboBox.TabIndex = 6;
@@ -104,7 +104,7 @@
             // CreatureDateTimePicker
             // 
             this.CreatureDateTimePicker.Enabled = false;
-            this.CreatureDateTimePicker.Location = new System.Drawing.Point(88, 80);
+            this.CreatureDateTimePicker.Location = new System.Drawing.Point(88, 69);
             this.CreatureDateTimePicker.Name = "CreatureDateTimePicker";
             this.CreatureDateTimePicker.Size = new System.Drawing.Size(200, 22);
             this.CreatureDateTimePicker.TabIndex = 7;
@@ -112,16 +112,16 @@
             // ModifiedDateTimePicker
             // 
             this.ModifiedDateTimePicker.Enabled = false;
-            this.ModifiedDateTimePicker.Location = new System.Drawing.Point(385, 80);
+            this.ModifiedDateTimePicker.Location = new System.Drawing.Point(389, 69);
             this.ModifiedDateTimePicker.Name = "ModifiedDateTimePicker";
             this.ModifiedDateTimePicker.Size = new System.Drawing.Size(200, 22);
             this.ModifiedDateTimePicker.TabIndex = 8;
             // 
             // OkButton
             // 
-            this.OkButton.Location = new System.Drawing.Point(546, 487);
+            this.OkButton.Location = new System.Drawing.Point(579, 487);
             this.OkButton.Name = "OkButton";
-            this.OkButton.Size = new System.Drawing.Size(75, 23);
+            this.OkButton.Size = new System.Drawing.Size(75, 28);
             this.OkButton.TabIndex = 9;
             this.OkButton.Text = "Ok";
             this.OkButton.UseVisualStyleBackColor = true;
@@ -129,12 +129,13 @@
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(638, 487);
+            this.CancelButton.Location = new System.Drawing.Point(660, 487);
             this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
+            this.CancelButton.Size = new System.Drawing.Size(75, 28);
             this.CancelButton.TabIndex = 10;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // NoteForm
             // 
@@ -154,7 +155,7 @@
             this.Controls.Add(this.TitleLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NoteForm";
-            this.Text = "New note";
+            this.Text = "Add note";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,6 +173,6 @@
         private System.Windows.Forms.DateTimePicker CreatureDateTimePicker;
         private System.Windows.Forms.DateTimePicker ModifiedDateTimePicker;
         private System.Windows.Forms.Button OkButton;
-        private System.Windows.Forms.Button CancelButton;
+        private new System.Windows.Forms.Button CancelButton;
     }
 }

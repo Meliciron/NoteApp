@@ -15,15 +15,11 @@ namespace NoteApp
     /// </summary>
     public class ProjectManager
     {
-     
-        
-        //TODO: вместо этих двух методов должно быть два константных текстовых поля. А в точке вызова сохранения/загрузки проекта в метод в качестве аргумента будет передаваться одна из этих константных строк
-       
         /// <summary>
         /// метод, сохраняющий данные о заметке в файл.
         /// </summary>
         /// <param name="project"></param>
-        public void SaveToFile(Project project , string path , string fileName) //TODO: путь до файла должен передаваться в метод аргументом, а не храниться в поле
+        public void SaveToFile(Project project , string path , string fileName)
         {
             JsonSerializer serializer = new JsonSerializer();
             using (StreamWriter sw = new StreamWriter(path + fileName))
@@ -37,19 +33,19 @@ namespace NoteApp
         /// метод, возвращающий данные о заметке из файла.
         /// </summary>
         /// <returns></returns>
-        public Project LoadFromFile(string path, string filename) //TODO:  путь до файла должен передаваться аргументом в метод
+        public Project LoadFromFile(string path, string filename)
         {
             Project project = null;
             JsonSerializer serializer = new JsonSerializer();
             using (StreamReader sr = new StreamReader(path + filename))
             using (JsonReader reader = new JsonTextReader(sr))
             {
-                project = (Project) serializer.Deserialize<Project>(reader);
+                project = serializer.Deserialize<Project>(reader);
             }
             if (project == null)
             {
                 project = new Project();
-                project.Notes = new List<Note>();
+                project.Notes = new List<Note>(); //TODO: новый список должен создаваться в конструкторе Project, чтобы каждый раз не приходилось писать создание списка
             }
             return project;
         }

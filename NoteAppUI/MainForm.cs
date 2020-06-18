@@ -13,10 +13,12 @@ using System.Windows.Forms;
 using Timer = System.Threading.Timer;
 
 namespace NoteAppUI
-{ //TODO: xml
+{
+    // TODO: если отредактировать существующую заметку, то её данные не обновляются на форме
+    // TODO: если на форме выбрать категорию для отображения, а затем в любой заметке изменить категорию на другую (не ту, которая выбрана для отображения), то заметка остается в листбоксе, хотя должна была исчезнуть
     public partial class MainForm : Form
     {
-        //Объявление переменных
+        //Объявление переменных //TODO: не надо таких комментариев. Должны быть отдельные xml-комментарии для каждого поля
         private Project _project = new Project();
         private const string _workFileName = "Work.json";
         private string _filePath = Environment.ExpandEnvironmentVariables(@"%appdata%\NoteApp");
@@ -35,15 +37,15 @@ namespace NoteAppUI
         /// </summary>
         private void MainForm_Load(object sender, EventArgs e)
         {
-            _project = _projectManager.LoadFromFile(_filePath, _workFileName);
+            _project = _projectManager.LoadFromFile(_filePath, _workFileName); //TODO: при первых запусках программа падает, так как файла нет. Нужна проверка - если файла нет, то создать пустой проект
             foreach (Note note in _project.Notes) NoteListBox.Items.Add(note);
             CategoryComboBox.SelectedIndex = 0;
-            FillNoteInfo(_project.CurrentNote);
+            //FillNoteInfo(_project.CurrentNote); //TODO: при первом запуске проект пустой и программа падает, так как нет текущей заметки. Нужна проверка
         }
 
         /// <summary>
         /// Заполнение комбобокса категориями заметок
-        /// </summary>//TODO: почему имя метода перенесено на другую строку
+        /// </summary>
         private void FillCombobox()
         {
             foreach (NoteCategory noteCategory in Enum.GetValues(typeof(NoteCategory)))
@@ -70,7 +72,7 @@ namespace NoteAppUI
                     _project.Notes.Add(newNote);
                     NoteListBox.Items.Add(newNote);
                     _projectManager.SaveToFile(_project, _filePath, _workFileName);
-                    _projectManager.LoadFromFile(_filePath, _workFileName);
+                    _projectManager.LoadFromFile(_filePath, _workFileName); //TODO: зачем загрузка? Загруженный проект даже никуда не сохраняется
                 }
             }
         }
@@ -83,7 +85,6 @@ namespace NoteAppUI
             int currentNoteIndex = NoteListBox.SelectedIndex;
             if (NoteListBox.SelectedIndex == -1)
             {
-                //TODO: месседжбоксы надо показывать, когда пользователь может потерять данные. А в таких случаях лучше не показывать - они только бесят пользователей
                 ErrorInditation();
             }
             else
@@ -94,7 +95,7 @@ namespace NoteAppUI
                 editNoteForm.Text = "Edit note";
                 /* editNoteForm.Icon = 
                      Icon.ExtractAssociatedIcon( Environment.ExpandEnvironmentVariables(@"Icons\edit-note.ico"));*/
-                editNoteForm.ShowDialog(); //TODO: надо проверять, с каким результатом закрылось окно
+                editNoteForm.ShowDialog();
                 if (editNoteForm.DialogResult != DialogResult.OK)
                     NoteListBox.SelectedItem = -1;
                 else
@@ -174,7 +175,7 @@ namespace NoteAppUI
         /// <summary>
         /// Заполнение информации (название, содержание и т.д.) заметки
         /// </summary>
-        private void FillNoteInfo(Note note) //TODO:  модификаторы доступа должны быть прописаны явно
+        private void FillNoteInfo(Note note)
         {
             TitleLabel.Text = note.Name;
             Pan2CategoryLabel.Text = note.Category.ToString();
@@ -309,6 +310,7 @@ namespace NoteAppUI
         /// </summary>
         private void SortByDateButton_Click(object sender, EventArgs e)
         {
+            // TODO: сортировка должна быть не по кнопке, а при добавлении/изменении заметок
             NoteListBox.Items.Clear();
             if (CategoryComboBox.SelectedIndex == 0)
             {
@@ -325,9 +327,4 @@ namespace NoteAppUI
             }
         }
     }
-    //TODO: Замечания по верстке окна:
-    //TODO: 1) элементы не выровнены между собой по направляющим (например лейблы относительно текстбоксов и т.д.)
-    //TODO: 2) у элементов должны быть одинаковые отступы/расстояния между друг другом. Здесь же поля слева и права могут быть разных размеров, как и расстояния между элементами сверху и снизу
-    //TODO: 3) грамматические ошибки
-    //TODO: 4) должна быть иконка у главного окна
 }

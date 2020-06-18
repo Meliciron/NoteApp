@@ -35,10 +35,10 @@ namespace UnitTests
             }
         }
 
+        // TODO: тесты не работают - файлы для тестирования есть только у тебя на компе, а должны быть в репозитории, чтобы тесты работали у ВСЕХ разработчиков
         [TestCase(TestName = "Тест сериализации проекта")]
         public void SaveToFileTest()
         {
-            //TODO: ты проверяешь только существование файла, но надо проверять, правильно ли он записался
             InitProjectManager();
             _projectManager.SaveToFile(_project, _filePath, _testfilename);
             var actual = File.ReadAllText(_filePath + _testfilename);
@@ -49,7 +49,7 @@ namespace UnitTests
 
         [TestCase("No name", "Some text", NoteCategory.Other,
             TestName = "Тест дессериализации проекта")]
-        public void LoadFromFileTest(string expectedName, string expectedText, NoteCategory expectedNoteCategory) //TODO: грамошибка в названии
+        public void LoadFromFileTest(string expectedName, string expectedText, NoteCategory expectedNoteCategory)
         {
             InitProjectManager();
             _projectManager.SaveToFile(_project, _filePath, _testfilename);

@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -19,10 +20,28 @@ namespace NoteAppUI
     public partial class MainForm : Form
     {
         //Объявление переменных //TODO: не надо таких комментариев. Должны быть отдельные xml-комментарии для каждого поля
+
+        /// <summary>
+        /// Список заметок
+        /// </summary>
         private Project _project = new Project();
+
+        /// <summary>
+        /// Имя файла, в котором хранятся заметки
+        /// </summary>
         private const string _workFileName = "Work.json";
+
+        /// <summary>
+        /// Путь к файлу, в котором хранятся заметки
+        /// </summary>
         private string _filePath = Environment.ExpandEnvironmentVariables(@"%appdata%\NoteApp");
+
+        /// <summary>
+        /// Объект класса ProjectManager.
+        /// Служит для сериализации и десериализации
+        /// </summary>
         private ProjectManager _projectManager = new ProjectManager();
+
         public MainForm()
         {
             InitializeComponent();
@@ -37,10 +56,21 @@ namespace NoteAppUI
         /// </summary>
         private void MainForm_Load(object sender, EventArgs e)
         {
-            _project = _projectManager.LoadFromFile(_filePath, _workFileName); //TODO: при первых запусках программа падает, так как файла нет. Нужна проверка - если файла нет, то создать пустой проект
-            foreach (Note note in _project.Notes) NoteListBox.Items.Add(note);
-            CategoryComboBox.SelectedIndex = 0;
-            //FillNoteInfo(_project.CurrentNote); //TODO: при первом запуске проект пустой и программа падает, так как нет текущей заметки. Нужна проверка
+            if (!File.Exists(_filePath + _workFileName))
+            {
+                _project = new Project();
+                CategoryComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                _project = _projectManager.LoadFromFile(_filePath,
+                    _workFileName); //TODO: при первых запусках программа падает, так как файла нет. Нужна проверка - если файла нет, то создать пустой проект
+                foreach (Note note in _project.Notes) NoteListBox.Items.Add(note);
+                CategoryComboBox.SelectedIndex = 0;
+                if (_project.CurrentNote != null)
+                    FillNoteInfo(_project.CurrentNote); //TODO: при первом запуске проект пустой и программа падает, так как нет текущей заметки. Нужна проверка
+                SortByDate();
+            }
         }
 
         /// <summary>
@@ -72,7 +102,6 @@ namespace NoteAppUI
                     _project.Notes.Add(newNote);
                     NoteListBox.Items.Add(newNote);
                     _projectManager.SaveToFile(_project, _filePath, _workFileName);
-                    _projectManager.LoadFromFile(_filePath, _workFileName); //TODO: зачем загрузка? Загруженный проект даже никуда не сохраняется
                 }
             }
         }
@@ -82,7 +111,7 @@ namespace NoteAppUI
         /// </summary>
         private void EditNote()
         {
-            int currentNoteIndex = NoteListBox.SelectedIndex;
+            var currentNote = NoteListBox.SelectedItem;
             if (NoteListBox.SelectedIndex == -1)
             {
                 ErrorInditation();
@@ -105,11 +134,13 @@ namespace NoteAppUI
                         NoteListBox.SelectedItem = -1;
                     else
                     {
-                        NoteListBox.Items.RemoveAt(currentNoteIndex);
-                        _project.Notes.RemoveAt(currentNoteIndex);
+                        NoteListBox.Items.Remove(currentNote);
+                        _project.Notes.Remove((Note) currentNote);
                         NoteListBox.Items.Add(editNote);
                         _project.Notes.Add(editNote);
                         _projectManager.SaveToFile(_project, _filePath, _workFileName);
+                        FillNoteInfo(editNote);
+                        Sorting();
                     }
                 }
             }
@@ -213,11 +244,33 @@ namespace NoteAppUI
         }
 
         /// <summary>
+        /// Сортировка по дате дате изменения
+        /// </summary>
+        private void SortByDate()
+        {
+            NoteListBox.Items.Clear();
+            if (CategoryComboBox.SelectedIndex == 0)
+            {
+                foreach (Note note in _project.SortList(_project.Notes))
+                    NoteListBox.Items.Add(note);
+            }
+            if (CategoryComboBox.SelectedIndex != 0)
+            {
+                var selectedCategory = (NoteCategory)Enum.GetValues(typeof(NoteCategory)).GetValue(CategoryComboBox.SelectedIndex - 1);
+                foreach (Note note in _project.SortList(selectedCategory, _project.SortList(_project.Notes)))
+                {
+                    NoteListBox.Items.Add(note);
+                }
+            }
+        }
+
+        /// <summary>
         /// Событие при выборе категории заметки в комбобоксе
         /// </summary>
         private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Sorting();
+            SortByDate();
         }
 
         /// <summary>
@@ -303,28 +356,6 @@ namespace NoteAppUI
         {
             if (e.KeyCode == Keys.Delete)
                 RemoveNote();
-        }
-
-        /// <summary>
-        /// Событие при нажатии на кнопку "Сортировать по дате изменения"
-        /// </summary>
-        private void SortByDateButton_Click(object sender, EventArgs e)
-        {
-            // TODO: сортировка должна быть не по кнопке, а при добавлении/изменении заметок
-            NoteListBox.Items.Clear();
-            if (CategoryComboBox.SelectedIndex == 0)
-            {
-                foreach (Note note in _project.SortList(_project.Notes))
-                    NoteListBox.Items.Add(note);
-            }
-            if (CategoryComboBox.SelectedIndex != 0)
-            {
-                var selectedCategory = (NoteCategory)Enum.GetValues(typeof(NoteCategory)).GetValue(CategoryComboBox.SelectedIndex -1);
-                foreach (Note note in _project.SortList(selectedCategory, _project.SortList(_project.Notes)))
-                {
-                    NoteListBox.Items.Add(note);
-                }
-            }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace NoteApp
         /// <summary>
         /// Конструктор списка заметок
         /// </summary>
-        public void NewNotesList()
+        public Project()
         {
             Notes = new List<Note>();
         }

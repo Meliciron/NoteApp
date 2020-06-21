@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace NoteApp
 {
     /// <summary>
@@ -45,7 +44,7 @@ namespace NoteApp
             if (project == null)
             {
                 project = new Project();
-                project.Notes = new List<Note>(); //TODO: новый список должен создаваться в конструкторе Project, чтобы каждый раз не приходилось писать создание списка
+                //TODO: новый список должен создаваться в конструкторе Project, чтобы каждый раз не приходилось писать создание списка
             }
             return project;
         }

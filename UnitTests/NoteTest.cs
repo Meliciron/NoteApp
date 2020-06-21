@@ -14,7 +14,7 @@ namespace UnitTests
     {
         private Note _note;
         //TODO: именование метода
-        public void initNote()
+        public void InitNote()
         {
            _note = new Note();
         }
@@ -23,7 +23,7 @@ namespace UnitTests
             TestName = "Возвращение корректного названия заметки")]
         public void TestNameGet_CorrectValue(string expected, string message)
         {
-            initNote();
+            InitNote();
             _note.Name = "Новая заметка";
             Assert.AreEqual(expected, _note.Name, message);
         }
@@ -33,7 +33,7 @@ namespace UnitTests
             TestName = "Присвоение неправильного названия больше 50 символов")]
         public void TestNameSet_ArgumentExeption(string setupData, string message)
         {
-            initNote();
+            InitNote();
             Assert.Throws<ArgumentException>(() => { _note.Name = setupData; }, message);
         }
 
@@ -41,7 +41,7 @@ namespace UnitTests
             TestName = "Присваивание пустого названия заметки")]
         public void TestNameSet_EmptyName(string setupData, string expected, string message)
         {
-            initNote();
+            InitNote();
             _note.Name = setupData;
             Assert.AreEqual(expected, _note.Name, message);
         }
@@ -51,7 +51,7 @@ namespace UnitTests
             TestName = "Присваивание категории заметки")]
         public void TestCategorySet(NoteCategory setupData, NoteCategory expected, string message)
         {
-            initNote();
+            InitNote();
             _note.Category = setupData;
             Assert.AreEqual(_note.Category, expected, message);
         }
@@ -60,7 +60,7 @@ namespace UnitTests
             TestName = "Возвращение категории заметки")]
         public void TestCategoryGet(NoteCategory expected, string message)
         {
-            initNote();
+            InitNote();
             _note.Category = expected;
             Assert.AreEqual(expected, _note.Category, message);
         }
@@ -70,7 +70,7 @@ namespace UnitTests
             TestName = "Возвращение текста заметки")]
         public void TestTextGet(string expected, string message)
         {
-            initNote();
+            InitNote();
             _note.Text = "Текст";
             Assert.AreEqual(_note.Text, expected, message);
         }
@@ -79,7 +79,7 @@ namespace UnitTests
             TestName = "Присваивание текста заметки")]
         public void TestTextSet(string setupData, string expected, string message)
         {
-            initNote();
+            InitNote();
             _note.Text = setupData;
             Assert.AreEqual(expected, _note.Text, message);
         }
@@ -89,7 +89,7 @@ namespace UnitTests
             TestName = "Возвращение времени создания заметки")]
         public void TestDateOfCreatureGet(string message)
         {
-            initNote();
+            InitNote();
             var expected = DateTime.Now;
             _note.CreatureDate = DateTime.Now;
             Assert.AreEqual(expected, _note.CreatureDate, message);
@@ -99,7 +99,7 @@ namespace UnitTests
             TestName = "Присваивание времени создания заметки")]
         public void TestDateOfCreatureSet(string message)
         {
-            initNote();
+            InitNote();
             var expected = DateTime.Now;
             _note.CreatureDate = DateTime.Now;
             Assert.AreEqual(expected, _note.CreatureDate, message);
@@ -110,7 +110,7 @@ namespace UnitTests
             TestName = "Возвращение времени последнего изменения заметки")]
         public void TestLastChangeDateGet(string message)
         {
-            initNote();
+            InitNote();
             var expected = DateTime.Now;
             _note.LastChangeDate = DateTime.Now;
             Assert.AreEqual(expected, _note.LastChangeDate, message);
@@ -120,7 +120,7 @@ namespace UnitTests
             TestName = "Присваивание времени последнего изменения заметки")]
         public void TestLastChangeDateSet(string message)
         {
-            initNote();
+            InitNote();
             var expected = DateTime.Now;
             _note.LastChangeDate = DateTime.Now;
             Assert.AreEqual(expected, _note.LastChangeDate, message);

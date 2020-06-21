@@ -38,7 +38,7 @@ namespace NoteAppUI
 
         /// <summary>
         /// Объект класса ProjectManager.
-        /// Служит для сериализации и десериализации
+        /// Служит для сериализации и десериализации проекта
         /// </summary>
         private ProjectManager _projectManager = new ProjectManager();
 
@@ -102,6 +102,7 @@ namespace NoteAppUI
                     _project.Notes.Add(newNote);
                     NoteListBox.Items.Add(newNote);
                     _projectManager.SaveToFile(_project, _filePath, _workFileName);
+                    SortByDate();
                 }
             }
         }
@@ -141,6 +142,7 @@ namespace NoteAppUI
                         _projectManager.SaveToFile(_project, _filePath, _workFileName);
                         FillNoteInfo(editNote);
                         Sorting();
+                        SortByDate();
                     }
                 }
             }

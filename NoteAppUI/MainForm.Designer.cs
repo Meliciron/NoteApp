@@ -178,7 +178,7 @@
             // CategoryLabel
             // 
             this.CategoryLabel.AutoSize = true;
-            this.CategoryLabel.Location = new System.Drawing.Point(3, 58);
+            this.CategoryLabel.Location = new System.Drawing.Point(3, 57);
             this.CategoryLabel.Name = "CategoryLabel";
             this.CategoryLabel.Size = new System.Drawing.Size(69, 17);
             this.CategoryLabel.TabIndex = 7;
@@ -236,7 +236,7 @@
             // Pan2CategoryLabel
             // 
             this.Pan2CategoryLabel.AutoSize = true;
-            this.Pan2CategoryLabel.Location = new System.Drawing.Point(70, 58);
+            this.Pan2CategoryLabel.Location = new System.Drawing.Point(70, 57);
             this.Pan2CategoryLabel.Name = "Pan2CategoryLabel";
             this.Pan2CategoryLabel.Size = new System.Drawing.Size(0, 17);
             this.Pan2CategoryLabel.TabIndex = 1;
@@ -245,7 +245,7 @@
             // 
             this.TitleLabel.AutoSize = true;
             this.TitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TitleLabel.Location = new System.Drawing.Point(1, 17);
+            this.TitleLabel.Location = new System.Drawing.Point(1, 12);
             this.TitleLabel.Name = "TitleLabel";
             this.TitleLabel.Size = new System.Drawing.Size(66, 29);
             this.TitleLabel.TabIndex = 0;

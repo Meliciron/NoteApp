@@ -45,7 +45,7 @@
             // TitleLabel
             // 
             this.TitleLabel.AutoSize = true;
-            this.TitleLabel.Location = new System.Drawing.Point(12, 21);
+            this.TitleLabel.Location = new System.Drawing.Point(9, 21);
             this.TitleLabel.Name = "TitleLabel";
             this.TitleLabel.Size = new System.Drawing.Size(39, 17);
             this.TitleLabel.TabIndex = 0;
@@ -54,7 +54,7 @@
             // CategoryLabel
             // 
             this.CategoryLabel.AutoSize = true;
-            this.CategoryLabel.Location = new System.Drawing.Point(12, 49);
+            this.CategoryLabel.Location = new System.Drawing.Point(9, 49);
             this.CategoryLabel.Name = "CategoryLabel";
             this.CategoryLabel.Size = new System.Drawing.Size(69, 17);
             this.CategoryLabel.TabIndex = 1;
@@ -63,7 +63,7 @@
             // CreatureDateLabel
             // 
             this.CreatureDateLabel.AutoSize = true;
-            this.CreatureDateLabel.Location = new System.Drawing.Point(12, 79);
+            this.CreatureDateLabel.Location = new System.Drawing.Point(9, 79);
             this.CreatureDateLabel.Name = "CreatureDateLabel";
             this.CreatureDateLabel.Size = new System.Drawing.Size(62, 17);
             this.CreatureDateLabel.TabIndex = 2;
@@ -119,7 +119,7 @@
             // 
             // OkButton
             // 
-            this.OkButton.Location = new System.Drawing.Point(530, 489);
+            this.OkButton.Location = new System.Drawing.Point(531, 489);
             this.OkButton.Name = "OkButton";
             this.OkButton.Size = new System.Drawing.Size(100, 28);
             this.OkButton.TabIndex = 9;
@@ -129,7 +129,7 @@
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(636, 489);
+            this.CancelButton.Location = new System.Drawing.Point(637, 489);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(100, 28);
             this.CancelButton.TabIndex = 10;

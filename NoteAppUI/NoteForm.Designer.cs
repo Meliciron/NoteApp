@@ -45,7 +45,7 @@
             // TitleLabel
             // 
             this.TitleLabel.AutoSize = true;
-            this.TitleLabel.Location = new System.Drawing.Point(9, 21);
+            this.TitleLabel.Location = new System.Drawing.Point(9, 15);
             this.TitleLabel.Name = "TitleLabel";
             this.TitleLabel.Size = new System.Drawing.Size(39, 17);
             this.TitleLabel.TabIndex = 0;
@@ -54,7 +54,7 @@
             // CategoryLabel
             // 
             this.CategoryLabel.AutoSize = true;
-            this.CategoryLabel.Location = new System.Drawing.Point(9, 49);
+            this.CategoryLabel.Location = new System.Drawing.Point(9, 44);
             this.CategoryLabel.Name = "CategoryLabel";
             this.CategoryLabel.Size = new System.Drawing.Size(69, 17);
             this.CategoryLabel.TabIndex = 1;
@@ -63,7 +63,7 @@
             // CreatureDateLabel
             // 
             this.CreatureDateLabel.AutoSize = true;
-            this.CreatureDateLabel.Location = new System.Drawing.Point(9, 79);
+            this.CreatureDateLabel.Location = new System.Drawing.Point(9, 75);
             this.CreatureDateLabel.Name = "CreatureDateLabel";
             this.CreatureDateLabel.Size = new System.Drawing.Size(62, 17);
             this.CreatureDateLabel.TabIndex = 2;
@@ -72,7 +72,7 @@
             // ModifiedDateLabel
             // 
             this.ModifiedDateLabel.AutoSize = true;
-            this.ModifiedDateLabel.Location = new System.Drawing.Point(321, 79);
+            this.ModifiedDateLabel.Location = new System.Drawing.Point(321, 75);
             this.ModifiedDateLabel.Name = "ModifiedDateLabel";
             this.ModifiedDateLabel.Size = new System.Drawing.Size(65, 17);
             this.ModifiedDateLabel.TabIndex = 3;
@@ -80,23 +80,23 @@
             // 
             // TitleTextBox
             // 
-            this.TitleTextBox.Location = new System.Drawing.Point(91, 18);
+            this.TitleTextBox.Location = new System.Drawing.Point(91, 12);
             this.TitleTextBox.Name = "TitleTextBox";
             this.TitleTextBox.Size = new System.Drawing.Size(501, 22);
             this.TitleTextBox.TabIndex = 4;
             // 
             // NoteTextTextBox
             // 
-            this.NoteTextTextBox.Location = new System.Drawing.Point(12, 104);
+            this.NoteTextTextBox.Location = new System.Drawing.Point(12, 98);
             this.NoteTextTextBox.Multiline = true;
             this.NoteTextTextBox.Name = "NoteTextTextBox";
-            this.NoteTextTextBox.Size = new System.Drawing.Size(723, 379);
+            this.NoteTextTextBox.Size = new System.Drawing.Size(723, 385);
             this.NoteTextTextBox.TabIndex = 5;
             // 
             // CategoryComboBox
             // 
             this.CategoryComboBox.FormattingEnabled = true;
-            this.CategoryComboBox.Location = new System.Drawing.Point(91, 46);
+            this.CategoryComboBox.Location = new System.Drawing.Point(91, 41);
             this.CategoryComboBox.Name = "CategoryComboBox";
             this.CategoryComboBox.Size = new System.Drawing.Size(121, 24);
             this.CategoryComboBox.TabIndex = 6;
@@ -104,7 +104,7 @@
             // CreatureDateTimePicker
             // 
             this.CreatureDateTimePicker.Enabled = false;
-            this.CreatureDateTimePicker.Location = new System.Drawing.Point(91, 76);
+            this.CreatureDateTimePicker.Location = new System.Drawing.Point(91, 70);
             this.CreatureDateTimePicker.Name = "CreatureDateTimePicker";
             this.CreatureDateTimePicker.Size = new System.Drawing.Size(200, 22);
             this.CreatureDateTimePicker.TabIndex = 7;
@@ -112,7 +112,7 @@
             // ModifiedDateTimePicker
             // 
             this.ModifiedDateTimePicker.Enabled = false;
-            this.ModifiedDateTimePicker.Location = new System.Drawing.Point(392, 76);
+            this.ModifiedDateTimePicker.Location = new System.Drawing.Point(392, 70);
             this.ModifiedDateTimePicker.Name = "ModifiedDateTimePicker";
             this.ModifiedDateTimePicker.Size = new System.Drawing.Size(200, 22);
             this.ModifiedDateTimePicker.TabIndex = 8;

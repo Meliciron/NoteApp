@@ -56,21 +56,12 @@ namespace NoteAppUI
         private void MainForm_Load(object sender, EventArgs e)
         {
             // TODO: проверка на существование файла должна проходить внутри менеджера, а не в форме - это же тоже часть бизнес-логики
-            if (!File.Exists(_filePath + _workFileName))
-            {
-                _project = new Project();
-                CategoryComboBox.SelectedIndex = 0;
-            }
-            else
-            {
-                _project = _projectManager.LoadFromFile(_filePath,
-                    _workFileName);
-                foreach (Note note in _project.Notes) NoteListBox.Items.Add(note);
-                CategoryComboBox.SelectedIndex = 0;
-                if (_project.CurrentNote != null)
-                    FillNoteInfo(_project.CurrentNote);
-                SortByDate();
-            }
+            _project = _projectManager.LoadFromFile(_filePath, _workFileName);
+            foreach (Note note in _project.Notes) NoteListBox.Items.Add(note);
+            CategoryComboBox.SelectedIndex = 0;
+            if (_project.CurrentNote != null)
+                FillNoteInfo(_project.CurrentNote);
+            SortByDate();
         }
 
         /// <summary>
@@ -143,6 +134,8 @@ namespace NoteAppUI
                         FillNoteInfo(editNote);
                         Sorting();
                         SortByDate();
+                        if (selectedNote.Category != editNote.Category)
+                            ClearStrings();
                     }
                 }
             }
@@ -264,6 +257,15 @@ namespace NoteAppUI
                     NoteListBox.Items.Add(note);
                 }
             }
+        }
+
+        private void ClearStrings()
+        {
+            Pan2CategoryLabel.Text = " ";
+            TitleLabel.Text = "Title";
+            NoteTextTextBox.Text = " ";
+            CreatureDateTimePicker.Value = DateTime.Now;
+            ModifiedDateTimePicker.Value = DateTime.Now;
         }
 
         /// <summary>

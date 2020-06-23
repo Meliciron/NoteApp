@@ -35,15 +35,13 @@ namespace NoteApp
         public Project LoadFromFile(string path, string filename)
         {
             Project project = null;
+            if (!File.Exists(path + filename))
+                return project = new Project();
             JsonSerializer serializer = new JsonSerializer();
             using (StreamReader sr = new StreamReader(path + filename))
             using (JsonReader reader = new JsonTextReader(sr))
             {
                 project = serializer.Deserialize<Project>(reader);
-            }
-            if (project == null)
-            {
-                project = new Project();
             }
             return project;
         }

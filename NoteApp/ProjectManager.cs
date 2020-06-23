@@ -44,7 +44,6 @@ namespace NoteApp
             if (project == null)
             {
                 project = new Project();
-                //TODO: новый список должен создаваться в конструкторе Project, чтобы каждый раз не приходилось писать создание списка
             }
             return project;
         }

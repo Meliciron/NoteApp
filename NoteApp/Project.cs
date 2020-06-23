@@ -11,8 +11,6 @@ namespace NoteApp
     /// </summary>
     public class Project 
     {
-        //TODO: нужен конструктор, в котором будет сразу создаваться пустой список заметок
-
         /// <summary>
         /// Текущая заметка
         /// </summary>

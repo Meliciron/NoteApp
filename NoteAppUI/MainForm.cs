@@ -15,12 +15,11 @@ using Timer = System.Threading.Timer;
 
 namespace NoteAppUI
 {
-    // TODO: если отредактировать существующую заметку, то её данные не обновляются на форме
-    // TODO: если на форме выбрать категорию для отображения, а затем в любой заметке изменить категорию на другую (не ту, которая выбрана для отображения), то заметка остается в листбоксе, хотя должна была исчезнуть
+    // TODO: если на форме выбрать категорию для отображения,
+    // а затем в любой заметке изменить категорию на другую (не ту, которая выбрана для отображения),
+    // то заметка исчезает из листбокса, но отображается на правой панели, хотя должна была исчезнуть
     public partial class MainForm : Form
     {
-        //Объявление переменных //TODO: не надо таких комментариев. Должны быть отдельные xml-комментарии для каждого поля
-
         /// <summary>
         /// Список заметок
         /// </summary>
@@ -56,6 +55,7 @@ namespace NoteAppUI
         /// </summary>
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // TODO: проверка на существование файла должна проходить внутри менеджера, а не в форме - это же тоже часть бизнес-логики
             if (!File.Exists(_filePath + _workFileName))
             {
                 _project = new Project();
@@ -64,11 +64,11 @@ namespace NoteAppUI
             else
             {
                 _project = _projectManager.LoadFromFile(_filePath,
-                    _workFileName); //TODO: при первых запусках программа падает, так как файла нет. Нужна проверка - если файла нет, то создать пустой проект
+                    _workFileName);
                 foreach (Note note in _project.Notes) NoteListBox.Items.Add(note);
                 CategoryComboBox.SelectedIndex = 0;
                 if (_project.CurrentNote != null)
-                    FillNoteInfo(_project.CurrentNote); //TODO: при первом запуске проект пустой и программа падает, так как нет текущей заметки. Нужна проверка
+                    FillNoteInfo(_project.CurrentNote);
                 SortByDate();
             }
         }

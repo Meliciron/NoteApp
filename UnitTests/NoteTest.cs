@@ -13,7 +13,7 @@ namespace UnitTests
     public class NoteTest
     {
         private Note _note;
-        //TODO: именование метода
+        
         public void InitNote()
         {
            _note = new Note();

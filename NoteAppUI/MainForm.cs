@@ -15,9 +15,6 @@ using Timer = System.Threading.Timer;
 
 namespace NoteAppUI
 {
-    // TODO: если на форме выбрать категорию для отображения,
-    // а затем в любой заметке изменить категорию на другую (не ту, которая выбрана для отображения),
-    // то заметка исчезает из листбокса, но отображается на правой панели, хотя должна была исчезнуть
     public partial class MainForm : Form
     {
         /// <summary>
@@ -55,7 +52,6 @@ namespace NoteAppUI
         /// </summary>
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // TODO: проверка на существование файла должна проходить внутри менеджера, а не в форме - это же тоже часть бизнес-логики
             _project = _projectManager.LoadFromFile(_filePath, _workFileName);
             foreach (Note note in _project.Notes) NoteListBox.Items.Add(note);
             CategoryComboBox.SelectedIndex = 0;

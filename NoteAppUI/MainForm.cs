@@ -130,7 +130,7 @@ namespace NoteAppUI
                         FillNoteInfo(editNote);
                         Sorting();
                         SortByDate();
-                        if (selectedNote.Category != editNote.Category)
+                        if ((selectedNote.Category != editNote.Category) && (CategoryComboBox.SelectedIndex !=0))
                             ClearStrings();
                     }
                 }

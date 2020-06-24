@@ -54,7 +54,7 @@
             // CategoryLabel
             // 
             this.CategoryLabel.AutoSize = true;
-            this.CategoryLabel.Location = new System.Drawing.Point(9, 44);
+            this.CategoryLabel.Location = new System.Drawing.Point(9, 48);
             this.CategoryLabel.Name = "CategoryLabel";
             this.CategoryLabel.Size = new System.Drawing.Size(69, 17);
             this.CategoryLabel.TabIndex = 1;
@@ -63,7 +63,7 @@
             // CreatureDateLabel
             // 
             this.CreatureDateLabel.AutoSize = true;
-            this.CreatureDateLabel.Location = new System.Drawing.Point(9, 75);
+            this.CreatureDateLabel.Location = new System.Drawing.Point(9, 83);
             this.CreatureDateLabel.Name = "CreatureDateLabel";
             this.CreatureDateLabel.Size = new System.Drawing.Size(62, 17);
             this.CreatureDateLabel.TabIndex = 2;
@@ -72,7 +72,7 @@
             // ModifiedDateLabel
             // 
             this.ModifiedDateLabel.AutoSize = true;
-            this.ModifiedDateLabel.Location = new System.Drawing.Point(321, 75);
+            this.ModifiedDateLabel.Location = new System.Drawing.Point(321, 83);
             this.ModifiedDateLabel.Name = "ModifiedDateLabel";
             this.ModifiedDateLabel.Size = new System.Drawing.Size(65, 17);
             this.ModifiedDateLabel.TabIndex = 3;
@@ -87,16 +87,19 @@
             // 
             // NoteTextTextBox
             // 
-            this.NoteTextTextBox.Location = new System.Drawing.Point(12, 98);
+            this.NoteTextTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.NoteTextTextBox.Location = new System.Drawing.Point(12, 114);
             this.NoteTextTextBox.Multiline = true;
             this.NoteTextTextBox.Name = "NoteTextTextBox";
-            this.NoteTextTextBox.Size = new System.Drawing.Size(723, 385);
+            this.NoteTextTextBox.Size = new System.Drawing.Size(723, 362);
             this.NoteTextTextBox.TabIndex = 5;
             // 
             // CategoryComboBox
             // 
             this.CategoryComboBox.FormattingEnabled = true;
-            this.CategoryComboBox.Location = new System.Drawing.Point(91, 41);
+            this.CategoryComboBox.Location = new System.Drawing.Point(91, 45);
             this.CategoryComboBox.Name = "CategoryComboBox";
             this.CategoryComboBox.Size = new System.Drawing.Size(121, 24);
             this.CategoryComboBox.TabIndex = 6;
@@ -104,7 +107,7 @@
             // CreatureDateTimePicker
             // 
             this.CreatureDateTimePicker.Enabled = false;
-            this.CreatureDateTimePicker.Location = new System.Drawing.Point(91, 70);
+            this.CreatureDateTimePicker.Location = new System.Drawing.Point(91, 80);
             this.CreatureDateTimePicker.Name = "CreatureDateTimePicker";
             this.CreatureDateTimePicker.Size = new System.Drawing.Size(200, 22);
             this.CreatureDateTimePicker.TabIndex = 7;
@@ -112,13 +115,14 @@
             // ModifiedDateTimePicker
             // 
             this.ModifiedDateTimePicker.Enabled = false;
-            this.ModifiedDateTimePicker.Location = new System.Drawing.Point(392, 70);
+            this.ModifiedDateTimePicker.Location = new System.Drawing.Point(392, 80);
             this.ModifiedDateTimePicker.Name = "ModifiedDateTimePicker";
             this.ModifiedDateTimePicker.Size = new System.Drawing.Size(200, 22);
             this.ModifiedDateTimePicker.TabIndex = 8;
             // 
             // OkButton
             // 
+            this.OkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.OkButton.Location = new System.Drawing.Point(531, 489);
             this.OkButton.Name = "OkButton";
             this.OkButton.Size = new System.Drawing.Size(100, 28);
@@ -129,6 +133,7 @@
             // 
             // CancelButton
             // 
+            this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelButton.Location = new System.Drawing.Point(637, 489);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(100, 28);

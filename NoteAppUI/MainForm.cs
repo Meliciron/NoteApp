@@ -207,20 +207,6 @@ namespace NoteAppUI
         }
 
         /// <summary>
-        /// Сообщение при выходе из программы
-        /// </summary>
-        private void CloseAppMessage() 
-        {
-            DialogResult result = MessageBox.Show("Exit NoteApp?", "NoteApp", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-                _project.CurrentNote = (Note) NoteListBox.SelectedItem;
-                _projectManager.SaveToFile(_project, _filePath, _workFileName);
-                Application.Exit();
-            }
-        }
-
-        /// <summary>
         /// Моргание фона листбокса, если не выбрана заметка для редактирования или удаления
         /// </summary>
         private void ErrorInditation()
@@ -278,7 +264,7 @@ namespace NoteAppUI
         /// </summary>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CloseAppMessage();
+            Application.Exit();
         }
 
         /// <summary>
@@ -287,9 +273,7 @@ namespace NoteAppUI
         private void NoteListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (NoteListBox.SelectedItem != null)
-            {
                 FillNoteInfo( (Note) NoteListBox.SelectedItem);
-            }
         }
 
         /// <summary>
@@ -356,6 +340,16 @@ namespace NoteAppUI
         {
             if (e.KeyCode == Keys.Delete)
                 RemoveNote();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Exit NoteApp?", "NoteApp", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                _project.CurrentNote = (Note)NoteListBox.SelectedItem;
+                _projectManager.SaveToFile(_project, _filePath, _workFileName);
+            }
         }
     }
 }

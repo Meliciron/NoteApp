@@ -93,6 +93,7 @@
             this.NoteTextTextBox.Location = new System.Drawing.Point(12, 114);
             this.NoteTextTextBox.Multiline = true;
             this.NoteTextTextBox.Name = "NoteTextTextBox";
+            this.NoteTextTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.NoteTextTextBox.Size = new System.Drawing.Size(723, 362);
             this.NoteTextTextBox.TabIndex = 5;
             // 

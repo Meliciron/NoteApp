@@ -159,7 +159,7 @@ namespace NoteAppUI
                         ClearStrings();
                         NoteListBox.SelectedIndex = NoteListBox.SelectedIndex - 1;
                     }
-                        
+                    
                     else
                     {
                         ClearStrings();

@@ -90,6 +90,7 @@ namespace NoteAppUI
                     NoteListBox.Items.Add(newNote);
                     _projectManager.SaveToFile(_project, _filePath, _workFileName);
                     SortByDate();
+                    FillNoteInfo(newNote);
                 }
             }
         }
@@ -155,10 +156,13 @@ namespace NoteAppUI
                 {
                     if (NoteListBox.SelectedIndex >= 0)
                     {
+                        ClearStrings();
                         NoteListBox.SelectedIndex = NoteListBox.SelectedIndex - 1;
                     }
+                        
                     else
                     {
+                        ClearStrings();
                         NoteListBox.SelectedIndex = -1;
                     }
                     NoteListBox.Items.Remove(deleteItem);

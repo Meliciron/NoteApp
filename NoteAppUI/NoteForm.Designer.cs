@@ -40,6 +40,7 @@
             this.ModifiedDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.OkButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
+            this.ErrorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // TitleLabel
@@ -84,6 +85,7 @@
             this.TitleTextBox.Name = "TitleTextBox";
             this.TitleTextBox.Size = new System.Drawing.Size(501, 22);
             this.TitleTextBox.TabIndex = 4;
+            this.TitleTextBox.TextChanged += new System.EventHandler(this.TitleTextBox_TextChanged);
             // 
             // NoteTextTextBox
             // 
@@ -94,7 +96,7 @@
             this.NoteTextTextBox.Multiline = true;
             this.NoteTextTextBox.Name = "NoteTextTextBox";
             this.NoteTextTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.NoteTextTextBox.Size = new System.Drawing.Size(723, 362);
+            this.NoteTextTextBox.Size = new System.Drawing.Size(742, 362);
             this.NoteTextTextBox.TabIndex = 5;
             // 
             // CategoryComboBox
@@ -124,7 +126,7 @@
             // OkButton
             // 
             this.OkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.OkButton.Location = new System.Drawing.Point(531, 489);
+            this.OkButton.Location = new System.Drawing.Point(550, 489);
             this.OkButton.Name = "OkButton";
             this.OkButton.Size = new System.Drawing.Size(100, 28);
             this.OkButton.TabIndex = 9;
@@ -135,7 +137,7 @@
             // CancelButton
             // 
             this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelButton.Location = new System.Drawing.Point(637, 489);
+            this.CancelButton.Location = new System.Drawing.Point(656, 489);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(100, 28);
             this.CancelButton.TabIndex = 10;
@@ -143,11 +145,20 @@
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
+            // ErrorLabel
+            // 
+            this.ErrorLabel.AutoSize = true;
+            this.ErrorLabel.Location = new System.Drawing.Point(599, 14);
+            this.ErrorLabel.Name = "ErrorLabel";
+            this.ErrorLabel.Size = new System.Drawing.Size(0, 17);
+            this.ErrorLabel.TabIndex = 11;
+            // 
             // NoteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(747, 522);
+            this.ClientSize = new System.Drawing.Size(766, 522);
+            this.Controls.Add(this.ErrorLabel);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.OkButton);
             this.Controls.Add(this.ModifiedDateTimePicker);
@@ -180,5 +191,6 @@
         private System.Windows.Forms.DateTimePicker ModifiedDateTimePicker;
         private System.Windows.Forms.Button OkButton;
         private new System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Label ErrorLabel;
     }
 }

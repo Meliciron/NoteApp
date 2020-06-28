@@ -55,10 +55,9 @@ namespace NoteAppUI
         {
             try
             {
+                _note.LastChangeDate = DateTime.Now;
                 _note.Category = (NoteCategory)Enum.GetValues(typeof(NoteCategory)).GetValue(CategoryComboBox.SelectedIndex);
                 _note.Text = NoteTextTextBox.Text;
-                _note.Name = TitleTextBox.Text;
-                _note.LastChangeDate = DateTime.Now;
             }
             catch (ArgumentException exception)
             {
@@ -73,6 +72,23 @@ namespace NoteAppUI
         private void CancelButton_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void TitleTextBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ErrorLabel.Text = "";
+                TitleTextBox.BackColor = Color.White;
+                OkButton.Enabled = true;
+                _note.Name = TitleTextBox.Text;
+            }
+            catch (ArgumentException exception)
+            {
+                ErrorLabel.Text = "Не более 50 символов";
+                TitleTextBox.BackColor = Color.IndianRed;
+                OkButton.Enabled = false;
+            }
         }
     }
 }

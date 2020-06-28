@@ -351,9 +351,11 @@ namespace NoteAppUI
             DialogResult result = MessageBox.Show("Exit NoteApp?", "NoteApp", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                _project.CurrentNote = (Note)NoteListBox.SelectedItem;
+                _project.CurrentNote = (Note) NoteListBox.SelectedItem;
                 _projectManager.SaveToFile(_project, _filePath, _workFileName);
             }
+            else
+                e.Cancel = true;
         }
     }
 }
